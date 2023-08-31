@@ -71,6 +71,12 @@ function App() {
     setResult(markdown);
   }
 
+  function copyResult() {
+    navigator.clipboard.writeText(result as string).then(() => {
+      alert("마크다운 코드가 복사되었습니다! 리드미에 붙여넣어보세요");
+    });
+  }
+
   return (
     <div className="App">
       <RowWrapper>
@@ -102,7 +108,7 @@ function App() {
             ))}
           </List>
           <button onClick={createTable}>표 생성하기</button>
-          <button onClick={createTable}>마크다운 복사하기</button>
+          {result && <button onClick={copyResult}>마크다운 복사하기</button>}
         </div>
       )}
       {result && <Result>{result}</Result>}
