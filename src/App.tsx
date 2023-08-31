@@ -11,6 +11,7 @@ function App() {
   const [value, setValue] = useState("");
   const [profileList, setProfileList] = useState<Profile[]>([]);
   const [profile, setProfile] = useState<Profile>();
+  const [result, setResult] = useState<string>();
 
   async function getUser() {
     try {
@@ -39,9 +40,40 @@ function App() {
     setProfileList((prev) => [...prev, profile as Profile]);
   }
 
+  function createTable() {
+    const col = profileList.length;
+
+    let markdown = `## Team`;
+
+    // markdown += `\n|`;
+    // for (let i = 0; i < col; i++) {
+    //   markdown += `|`;
+    // }
+
+    markdown += `\n|`;
+    for (const item of profileList) {
+      markdown += `<img src="${item.image}" width="150" height="150"/>|`;
+    }
+
+    markdown += `\n|`;
+    for (let i = 0; i < col; i++) {
+      markdown += `:-:|`;
+    }
+
+    markdown += `\n|`;
+    for (const item of profileList) {
+      if (item.name) {
+        markdown += `${item.name}<br/>`;
+      }
+      markdown += `[@${item.id}](${item.url})|`;
+    }
+
+    setResult(markdown);
+  }
+
   return (
     <div className="App">
-      <h1>Github Profile Markdown Table Generator</h1>
+      <h1>Github Markdown Table Generator</h1>
       <h5>
         팀원의 깃허브 아이디를 입력하면 깃허브 프로필로 이루어진 마크다운 표를
         자동으로 생성합니다
@@ -52,7 +84,7 @@ function App() {
       {profile && (
         <div>
           <ProfileCard data={profile} size={200} />
-          <button onClick={addProfile}>Yes</button>
+          <button onClick={addProfile}>추가하기</button>
         </div>
       )}
       {profileList.length !== 0 && (
@@ -63,8 +95,10 @@ function App() {
               <ProfileCard data={item} size={100} key={idx} />
             ))}
           </List>
+          <button onClick={createTable}>표 생성하기</button>
         </div>
       )}
+      {result && <Result>{result}</Result>}
     </div>
   );
 }
@@ -75,4 +109,8 @@ const List = styled.div`
   gap: 10px;
   width: 600px;
   overflow-x: scroll;
+`;
+
+const Result = styled.div`
+  white-space: pre-wrap;
 `;
