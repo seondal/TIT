@@ -3,15 +3,10 @@ import { Profile } from "../types/interface";
 
 interface ProfileCard {
   data: Profile;
-  addProfile?: () => void;
-  size?: number;
+  size: number;
 }
 
-export default function ProfileCard({
-  data,
-  addProfile,
-  size = 200,
-}: ProfileCard) {
+export default function ProfileCard({ data, size }: ProfileCard) {
   return (
     <Container size={size}>
       <img src={data.image} />
@@ -19,7 +14,6 @@ export default function ProfileCard({
       <a target="_blank" href={data.url}>
         @{data.id}
       </a>
-      <div>{addProfile && <button onClick={addProfile}>Yes</button>}</div>
     </Container>
   );
 }

@@ -5,6 +5,7 @@ import { Profile } from "./types/interface";
 import axios from "axios";
 import { GetUserResponse } from "./types/response";
 import ProfileCard from "./components/ProfileCard";
+import { styled } from "styled-components";
 
 function App() {
   const [value, setValue] = useState("");
@@ -42,14 +43,36 @@ function App() {
     <div className="App">
       <h1>Github Profile Markdown Table Generator</h1>
       <h5>
-        깃허브 아이디를 입력하면 깃허브 프로필로 이루어진 마크다운 표를 자동으로
-        생성합니다
+        팀원의 깃허브 아이디를 입력하면 깃허브 프로필로 이루어진 마크다운 표를
+        자동으로 생성합니다
       </h5>
       <form onSubmit={onSubmit}>
         <input value={value} onChange={(e) => setValue(e.target.value)} />
       </form>
-      {profile && <ProfileCard data={profile} addProfile={addProfile} />}
+      {profile && (
+        <div>
+          <ProfileCard data={profile} size={200} />
+          <button onClick={addProfile}>Yes</button>
+        </div>
+      )}
+      {profileList.length !== 0 && (
+        <div>
+          <h4>추가된 팀원</h4>
+          <List>
+            {profileList.map((item, idx) => (
+              <ProfileCard data={item} size={100} key={idx} />
+            ))}
+          </List>
+        </div>
+      )}
     </div>
   );
 }
 export default App;
+
+const List = styled.div`
+  display: flex;
+  gap: 10px;
+  width: 600px;
+  overflow-x: scroll;
+`;
