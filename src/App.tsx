@@ -89,6 +89,13 @@ function App() {
           <form onSubmit={onSubmit}>
             <input value={value} onChange={(e) => setValue(e.target.value)} />
             <button type="submit">검색</button>
+            <div>
+              <a
+                target="_blank"
+                href="https://github.com/seondal/profile-table-md">
+                사용법 (깃허브 리드미)
+              </a>
+            </div>
           </form>
         </div>
         {profile && (
