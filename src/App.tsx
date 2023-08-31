@@ -73,29 +73,36 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Github Markdown Table Generator</h1>
-      <h5>
-        팀원의 깃허브 아이디를 입력하면 깃허브 프로필로 이루어진 마크다운 표를
-        자동으로 생성합니다
-      </h5>
-      <form onSubmit={onSubmit}>
-        <input value={value} onChange={(e) => setValue(e.target.value)} />
-      </form>
-      {profile && (
+      <RowWrapper>
         <div>
-          <ProfileCard data={profile} size={200} />
-          <button onClick={addProfile}>추가하기</button>
+          <h1>Github Markdown Table Generator</h1>
+          <h5>
+            팀원의 깃허브 아이디를 입력하면 깃허브 프로필로 이루어진 마크다운
+            표를 자동으로 생성합니다
+          </h5>
+          <form onSubmit={onSubmit}>
+            <input value={value} onChange={(e) => setValue(e.target.value)} />
+            <button type="submit">검색</button>
+          </form>
         </div>
-      )}
+        {profile && (
+          <div>
+            <ProfileCard data={profile} size={"12rem"} />
+            <button onClick={addProfile}>추가하기</button>
+          </div>
+        )}
+      </RowWrapper>
+
       {profileList.length !== 0 && (
         <div>
-          <h4>추가된 팀원</h4>
+          <h4>추가된 팀원 {profileList.length}명</h4>
           <List>
             {profileList.map((item, idx) => (
-              <ProfileCard data={item} size={100} key={idx} />
+              <ProfileCard data={item} size={"8rem"} key={idx} />
             ))}
           </List>
           <button onClick={createTable}>표 생성하기</button>
+          <button onClick={createTable}>마크다운 복사하기</button>
         </div>
       )}
       {result && <Result>{result}</Result>}
@@ -104,13 +111,18 @@ function App() {
 }
 export default App;
 
+const RowWrapper = styled.section`
+  width: 100%;
+  justify-content: space-between;
+`;
+
 const List = styled.div`
   display: flex;
-  gap: 10px;
-  width: 600px;
-  overflow-x: scroll;
+  gap: 1rem;
+  flex-wrap: wrap-reverse;
 `;
 
 const Result = styled.div`
+  padding: 1rem;
   white-space: pre-wrap;
 `;
