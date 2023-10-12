@@ -33,8 +33,15 @@ function App() {
           name: data.name,
         });
       }
-    } catch (e) {
-      alert("올바른 깃허브 아이디를 입력해주세요");
+    } catch (e: any) {
+      const statusCode = e.response.status;
+      if (statusCode === 404) {
+        alert("올바른 깃허브 아이디를 입력해주세요");
+        return;
+      }
+      alert(
+        `개발자에게 문의해주세요\nErrorCode: ${statusCode.status}\nInstagram: @dev_seondal`
+      );
     }
   }
 
