@@ -6,6 +6,7 @@ import axios from "axios";
 import { GetUserResponse } from "./types/response";
 import ProfileCard from "./components/ProfileCard";
 import { styled } from "styled-components";
+import { GITHUB_TOKEN } from "./constant/env";
 
 function App() {
   const [value, setValue] = useState("");
@@ -19,7 +20,7 @@ function App() {
         `https://api.github.com/users/${value}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            Authorization: `Bearer ${GITHUB_TOKEN}`,
           },
         }
       );
