@@ -15,7 +15,14 @@ function App() {
 
   async function getUser() {
     try {
-      const response = await axios.get(`https://api.github.com/users/${value}`);
+      const response = await axios.get(
+        `https://api.github.com/users/${value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          },
+        }
+      );
       if (response.status === 200) {
         const data: GetUserResponse = response.data;
         setProfile({
