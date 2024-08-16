@@ -7,10 +7,6 @@ import { GetUserResponse } from "./types/response";
 import ProfileCard from "./components/ProfileCard";
 import { styled } from "styled-components";
 import { GITHUB_TOKEN } from "./constant/env";
-import ReactGA from "react-ga";
-
-const gaTrackingId = "G-3RM8VCHM6N";
-ReactGA.initialize(gaTrackingId);
 
 function App() {
   const [value, setValue] = useState("");
