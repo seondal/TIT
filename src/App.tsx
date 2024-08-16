@@ -39,9 +39,7 @@ function App() {
         alert("올바른 깃허브 아이디를 입력해주세요");
         return;
       }
-      alert(
-        `개발자에게 문의해주세요\nErrorCode: ${statusCode.status}\nInstagram: @dev_seondal`
-      );
+      alert(`개발자에게 문의해주세요\nErrorCode: ${statusCode.status}`);
     }
   }
 
@@ -101,24 +99,33 @@ function App() {
             팀원의 깃허브 아이디를 입력하면 깃허브 프로필로 이루어진 마크다운
             표를 자동으로 생성합니다
           </h5>
-          <form onSubmit={onSubmit}>
-            <input value={value} onChange={(e) => setValue(e.target.value)} />
-            <button type="submit">검색</button>
-            <div>
-              <a
-                target="_blank"
-                href="https://github.com/seondal/profile-table-md">
-                사용법 (깃허브 리드미)
-              </a>
-            </div>
-          </form>
-        </div>
-        {profile && (
-          <div>
-            <ProfileCard data={profile} size={"12rem"} />
-            <button onClick={addProfile}>추가하기</button>
+          <div className="input-box">
+            <form onSubmit={onSubmit}>
+              <input value={value} onChange={(e) => setValue(e.target.value)} />
+              <button type="submit">검색</button>
+              <div>
+                <b>사용법</b>
+                <br />
+                1. 깃허브 아이디로 유저를 검색한다.
+                <br />
+                2. 팀원을 추가한다
+                <br />
+                3. 표 생성하기 버튼을 누른다
+                <br />
+                4. 나온 마크다운 코드를 복사해서 깃허브 리드미에 붙여넣는다
+                <br />
+                <br />
+                <a href="https://litt.ly/seondal">이 사이트 만든 사람</a>
+              </div>
+            </form>
+            {profile && (
+              <div>
+                <ProfileCard data={profile} size={"12rem"} />
+                <button onClick={addProfile}>추가하기</button>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </RowWrapper>
 
       {profileList.length !== 0 && (
@@ -142,6 +149,11 @@ export default App;
 const RowWrapper = styled.section`
   width: 100%;
   justify-content: space-between;
+
+  .input-box {
+    display: flex;
+    gap: 16px;
+  }
 `;
 
 const List = styled.div`
